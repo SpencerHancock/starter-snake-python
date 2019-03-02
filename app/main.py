@@ -31,7 +31,7 @@ def ping():
     return ping_response()
 
 @bottle.post('/start')
-def start():
+def start(): //I was here
     data = bottle.request.json
 
     """
