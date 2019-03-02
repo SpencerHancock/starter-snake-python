@@ -57,11 +57,11 @@ def move():
     """
     # print(json.dumps(data))
     print(json.dumps(data["board"]["snakes"][0]["body"][0]["y"]))
-    if data["board"]["snakes"][0]["body"][0]["y"] <= 1:
+    if data["board"]["snakes"][0]["body"][0]["y"] <= 2:
         return move_response("left")
         last = "left"
-        
-    elif data["board"]["snakes"][0]["body"][0]["y"]>= 1:
+
+    elif data["board"]["snakes"][0]["body"][0]["y"]>= 2:
         return move_response("up")
 
 
