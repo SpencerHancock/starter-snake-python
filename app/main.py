@@ -2,7 +2,7 @@ import json
 import os
 import random
 import bottle
-
+from food_dist import food_location, food_direction
 from api import ping_response, start_response, move_response, end_response
 
 @bottle.route('/')
@@ -56,13 +56,15 @@ def move():
             snake AI must choose a direction to move in.
     """
     # print(json.dumps(data))
-    print(json.dumps(data["board"]["snakes"][0]["body"][0]["y"]))
-    if data["board"]["snakes"][0]["body"][0]["y"] <= 2:
-        return move_response("left")
-        last = "left"
+    print(food_direction())
+    return move_response(food_direction())
+    # if data["board"]["snakes"][0]["body"][0]["y"] <= 2:
+    #     return move_response("left")
+    #     last = "left"
 
-    elif data["board"]["snakes"][0]["body"][0]["y"]>= 2:
-        return move_response("up")
+    # elif data["board"]["snakes"][0]["body"][0]["y"]>= 2:
+    #     return move_response("up")
+
 	#comment by kaiyoh
 
 @bottle.post('/end')
