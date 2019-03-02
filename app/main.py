@@ -63,7 +63,7 @@ def move():
 
     elif data["board"]["snakes"][0]["body"][0]["y"]>= 2:
         return move_response("up")
-
+	#comment by kaiyoh
 
 @bottle.post('/end')
 def end():
