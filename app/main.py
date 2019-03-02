@@ -21,7 +21,7 @@ def static(path):
     This can be used to return the snake head URL in an API response.
     """
     return bottle.static_file(path, root='static/')
-
+    #little change
 @bottle.post('/ping')
 def ping():
     """
