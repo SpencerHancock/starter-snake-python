@@ -49,17 +49,19 @@ def start():
 @bottle.post('/move')
 def move():
     data = bottle.request.json
+    last = "unknown"
 
     """
     TODO: Using the data from the endpoint request object, your
             snake AI must choose a direction to move in.
     """
-    print(json.dumps(data))
-
-    directions = ['up', 'down', 'left', 'right']
-    direction = random.choice(directions)
-
-    return move_response(direction)
+    # print(json.dumps(data))
+    print(json.dumps(data["board"]["snakes"][0]["body"][0]["y"]))
+    if data["board"]["snakes"][0]["body"][0]["y"] <= 1:
+        return move_response("left")
+        last = "left"
+    elif data["board"]["snakes"][0]["body"][0]["y"] >= 1:
+        return move_response("up")
 
 
 @bottle.post('/end')
