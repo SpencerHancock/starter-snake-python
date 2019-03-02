@@ -47,6 +47,65 @@ def start(): #comment was herr
 
 
 @bottle.post('/move')
+
+def nearestSnakeDirection():
+    data = bottle.request.json
+    you = data["you"]
+    id = you["id"]
+    snakes = data["snakes"]
+    own_coordinates = you["body"]
+    ownHead = own_coordinates[0]
+    headX = ownHead["x"]
+    headY = ownHead["y"]
+    other_snakes = deleteOwnSnake(snakes,id)
+    other_snakes_x = []
+    other_snakes_y = []
+    for z in range(0,len(other_snakes)):
+        info = other_snakes[z]
+        other_snakes_x.append(info["body"][z]["x"])
+        other_snakes_y.append(info["body"][z]["y"])
+
+    nearestX = None #exagerated number   #### NOTE: nearestX and nearestY both refer to a single body part of a specific enemy snake
+    nearestY = None
+    """
+    for p in range(0,len(other_snakes)): ### need only care about the snakes that are on the same y and x as us
+        if(other_snakes_x[p]<nearestX):
+            nearestX = other_snakes_x
+        if(other_snakes_y[p]<nearestY):
+            nearestY
+    """
+
+    bodies_on_our_x = []
+    bodies_on_our_y = []
+    for o in range(0,len(other_snakes)):
+        if(other_snakes_x[o]==headX):
+            bodies_on_our_x.append(other_snakes_x[o])
+        if(other_snakes_y[o]==headY):
+            bodies_on_our_x.append(other_snakes_y[o])
+
+    nearestX = min(bodies_on_our_x, key=lambda x:abs(x-headX))
+    nearestY = min(bodies_on_our_y, key=lambda x:abs(x-headY))
+
+    if(nearestX<nearestY):
+        return "straight"
+    if(nearestY<nearestX):
+        return "left"
+
+    #print(data)
+
+
+
+def deleteOwnSnake(snakes, own_id): #deletes the location of our snake from the list of snakes
+    for x in range(0,len(snakes)):
+        i = snakes[x]
+        if(i["id"]==own_id):
+            del snakes[x]
+            return snakes
+
+
+
+
+
 def move():
     data = bottle.request.json
     last = "unknown"
@@ -86,4 +145,6 @@ if __name__ == '__main__':
         host=os.getenv('IP', '0.0.0.0'),
         port=os.getenv('PORT', '8080'),
         debug=os.getenv('DEBUG', True)
+        nearestSnakeDirection()
+        print("HIIIII")
     )
