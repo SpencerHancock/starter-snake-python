@@ -60,7 +60,8 @@ def move():
     if data["board"]["snakes"][0]["body"][0]["y"] <= 1:
         return move_response("left")
         last = "left"
-    elif data["board"]["snakes"][0]["body"][0]["y"] >= 1:
+        
+    elif data["board"]["snakes"][0]["body"][0]["y"]>= 1:
         return move_response("up")
 
 
